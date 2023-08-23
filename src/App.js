@@ -1,24 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { ConfigProvider, theme } from "antd";
+import trTR from "antd/locale/tr_TR";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import User from "./pages/User";
+import Role from "./pages/Role";
+import Flow from "./pages/Flow";
+import Permission from "./pages/Permission";
+import Task from "./pages/Task";
+import MainLayout from './components/MainLayout';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ConfigProvider locale={trTR} theme={{ algorithm: theme.defaultAlgorithm }}>
+      <BrowserRouter>
+        <MainLayout>
+          <Routes>
+            <Route path='/' element={<User />} />
+            <Route path='/user' element={<User />} />
+            <Route path='/role' element={<Role />} />
+            <Route path='/flow' element={<Flow />} />
+            <Route path='/task' element={<Task />} />
+            <Route path='/permission' element={<Permission />} />
+          </Routes>
+        </MainLayout>
+      </BrowserRouter>
+    </ConfigProvider>
   );
 }
 
