@@ -1,5 +1,47 @@
 {
-    "user": [
-        
-    ]
+  "user": [],
+  "flow": [],
+  "permission": [
+    {
+      "name": "test1",
+      "id": 1
+    },
+    {
+      "name": "test2",
+      "id": 2
+    }
+  ],
+  "role": [
+    {
+      "name": "111",
+      "permissions": "1,2",
+      "id": 1
+    },
+    {
+      "name": "222",
+      "permissions": "2,1",
+      "id": 2
+    },
+    {
+      "name": "333",
+      "permissions": "1",
+      "id": 3
+    },
+    {
+      "name": "skklwa",
+      "permissions": "1,2",
+      "id": 4
+    },
+    {
+      "name": "kşjejqfjşef",
+      "permissions": "1,2",
+      "id": 5
+    },
+    {
+      "name": "edlkıkwe",
+      "permissions": "1,2",
+      "id": 6
+    }
+  ],
+  "task": []
 }

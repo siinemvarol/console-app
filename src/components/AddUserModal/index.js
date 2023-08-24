@@ -1,10 +1,10 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 
-const AddUserModal = ({ isModalOpen, onOk, onCancel }) => {
+const AddUserModal = ({ isModalOpen, onOk, onCancel, roles }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-//    console.log(values);
+    //    console.log(values);
     onOk(values);
     form.resetFields();
   };
@@ -14,8 +14,8 @@ const AddUserModal = ({ isModalOpen, onOk, onCancel }) => {
       title="Add User"
       open={isModalOpen}
       onCancel={onCancel}
-      cancelButtonProps={{style: {display: "none"}}}
-      okButtonProps={{style: {display: "none"}}}
+      cancelButtonProps={{ style: { display: "none" } }}
+      okButtonProps={{ style: { display: "none" } }}
     >
       <Form
         form={form}
@@ -38,19 +38,29 @@ const AddUserModal = ({ isModalOpen, onOk, onCancel }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          name="gender"
-          label="Gender"
-          rules={[{ required: true }]}
-        >
+        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
           <Select placeholder="Select an option">
             <Select.Option value="female">Female</Select.Option>
             <Select.Option value="male">Male</Select.Option>
             <Select.Option value="other">Other</Select.Option>
           </Select>
         </Form.Item>
+        <Form.Item name="role" label="Role" rules={[{ required: true }]}>
+          <Select placeholder="Select an option">
+            {roles.map((role) => {
+              return (
+                <Select.Option value={role.id} key={role.id}>
+                  {role.name}
+                </Select.Option>
+              );
+            })}
+          </Select>
+        </Form.Item>
+
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit">Add User</Button>
+          <Button type="primary" htmlType="submit">
+            Add User
+          </Button>
         </Form.Item>
       </Form>
     </Modal>
