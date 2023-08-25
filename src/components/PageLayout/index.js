@@ -1,23 +1,30 @@
-import { Button, Col, Row, Space, Input } from "antd";
+import { Button, Col, Row, Input } from "antd";
 import React from "react";
 import "./index.scss";
 
-const PageLayout = ({ children, buttons }) => {
+const PageLayout = ({ children, buttons, onSearch }) => {
+  const { Search } = Input;
 
-    const onSearch = (value) => {
-        
+  const handleSearch = (value) => {
+    if (onSearch) {
+      onSearch(value);
     }
-
-    const { Search } = Input;
+  };
 
   return (
     <Row className="page-layout">
       <Col>
         <Row>
           <Col flex="auto">
-            <Space direction="vertical">
-            <Search placeholder="Search..." onSearch={onSearch} enterButton style={{width: 400}} />
-            </Space>
+            { onSearch &&
+              <Search
+              placeholder="Search..."
+              onSearch={handleSearch}
+              enterButton
+              style={{ width: 400 }}
+            />
+            }
+            
           </Col>
           <Col>
             {buttons.map((button) => {

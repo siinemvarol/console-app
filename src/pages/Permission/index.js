@@ -9,6 +9,7 @@ const Permission = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [permissions, setPermissions] = useState([]);
   const [initialValues, setInitialValues] = useState();
+  const [search, setSearch] = useState("");
 
   const onOkAddPermission = (values) => {
     setIsModalOpen(false);
@@ -57,6 +58,10 @@ const Permission = () => {
     setInitialValues(row);
   };
 
+  const onSearch = (value) => {
+    setSearch(value);
+  };
+
   const columns = [
     {
       title: "Name",
@@ -87,8 +92,14 @@ const Permission = () => {
   }, []);
 
   return (
-    <PageLayout buttons={buttons}>
-      <Table dataSource={permissions} columns={columns} rowKey="id" />
+    <PageLayout buttons={buttons} onSearch={onSearch}>
+      <Table
+        dataSource={permissions.filter((permission) => {
+          return permission.name.includes(search);
+        })}
+        columns={columns}
+        rowKey="id"
+      />
       {isModalOpen && (
         <AddPermissionModal
           isModalOpen={isModalOpen}

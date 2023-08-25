@@ -1,13 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
-} from '@ant-design/icons';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-import { Link } from 'react-router-dom';
+} from "@ant-design/icons";
+import { Breadcrumb, Layout, Menu, theme } from "antd";
+import { Link } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
@@ -20,24 +20,49 @@ function getItem(label, key, icon, children) {
 const items = [
   getItem(<Link to="/user">User</Link>, "user-mi", <PieChartOutlined />),
   getItem(<Link to="/role">Role</Link>, "role-mi", <DesktopOutlined />),
-  getItem(<Link to="/permission">Permission</Link>, "permission-mi", <UserOutlined />),
-  getItem(<Link to="/task">Task</Link>, "task-mi", <TeamOutlined />), 
-  getItem(<Link to="/flow">Flow</Link>, "flow-mi", <FileOutlined />), 
+  getItem(
+    <Link to="/permission">Permission</Link>,
+    "permission-mi",
+    <UserOutlined />
+  ),
+  getItem(<Link to="/task">Task</Link>, "task-mi", <TeamOutlined />),
+  getItem(<Link to="/flow">Flow</Link>, "flow-mi", <FileOutlined />),
 ];
-const MainLayout = ({children}) => {
+const MainLayout = ({ children }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [breadCrumb, setBreadCrumb] = useState();
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const onSelect = ({ key }) => {
+    items.forEach((item) => {
+      if (item.key === key) {
+        console.log(item);
+        setBreadCrumb(item.label);
+      }
+    });
+  };
+
   return (
     <Layout
       style={{
-        minHeight: '100vh',
+        minHeight: "100vh",
       }}
     >
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
         <div className="demo-logo-vertical" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={["1"]}
+          mode="inline"
+          items={items}
+          onSelect={onSelect}
+        />
       </Sider>
       <Layout>
         <Header
@@ -48,16 +73,16 @@ const MainLayout = ({children}) => {
         />
         <Content
           style={{
-            margin: '0 16px',
+            margin: "0 16px",
           }}
         >
           <Breadcrumb
-            items={[{title: "User"}]}
+            items={[{ title: breadCrumb }]}
             style={{
-              margin: '16px 0',
+              margin: "16px 0",
             }}
           />
-            
+
           <div
             style={{
               padding: 24,
@@ -70,7 +95,7 @@ const MainLayout = ({children}) => {
         </Content>
         <Footer
           style={{
-            textAlign: 'center',
+            textAlign: "center",
           }}
         >
           Ant Design ©2023 Created by Ant UED
