@@ -1,15 +1,18 @@
 {
-  "user": [],
+  "user": [
+    {
+      "firstname": "sinem",
+      "lastname": "varol",
+      "gender": "female",
+      "roles": "2,1",
+      "id": 1
+    }
+  ],
   "flow": [
     {
-      "name": "flow11",
-      "tasks": "6,5",
+      "name": "flow1",
+      "tasks": "1,2,3,4,5",
       "id": 1
-    },
-    {
-      "name": "flow12",
-      "tasks": "4,3",
-      "id": 2
     }
   ],
   "permission": [
@@ -36,49 +39,14 @@
   ],
   "role": [
     {
-      "name": "111",
-      "permissions": "1,2",
+      "name": "role1",
+      "permissions": "2,3",
       "id": 1
     },
     {
-      "name": "222",
-      "permissions": "2,1",
+      "name": "role2",
+      "permissions": "4,3,1",
       "id": 2
-    },
-    {
-      "name": "333",
-      "permissions": "1",
-      "id": 3
-    },
-    {
-      "name": "skklwa",
-      "permissions": "1,2",
-      "id": 4
-    },
-    {
-      "name": "kşjejqfjşef",
-      "permissions": "1,2",
-      "id": 5
-    },
-    {
-      "name": "edlkıkwe",
-      "permissions": "1,2",
-      "id": 6
-    },
-    {
-      "name": "role3",
-      "permissions": "3",
-      "id": 7
-    },
-    {
-      "name": "role5",
-      "permissions": "4",
-      "id": 8
-    },
-    {
-      "name": "role6",
-      "permissions": "2,3",
-      "id": 9
     }
   ],
   "task": [

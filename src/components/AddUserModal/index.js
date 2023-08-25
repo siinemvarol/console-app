@@ -1,6 +1,13 @@
 import { Button, Form, Input, Modal, Select } from "antd";
+import { useEffect } from "react";
 
-const AddUserModal = ({ isModalOpen, onOk, onCancel, roles }) => {
+const AddUserModal = ({
+  isModalOpen,
+  onOk,
+  onCancel,
+  roles,
+  initialValues,
+}) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -8,6 +15,12 @@ const AddUserModal = ({ isModalOpen, onOk, onCancel, roles }) => {
     onOk(values);
     form.resetFields();
   };
+
+  useEffect(() => {
+    if (form) {
+      form.setFieldsValue(initialValues);
+    }
+  }, [form]);
 
   return (
     <Modal

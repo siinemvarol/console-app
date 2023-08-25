@@ -98,7 +98,7 @@ const MainLayout = ({ children }) => {
             textAlign: "center",
           }}
         >
-          Ant Design ©2023 Created by Ant UED
+          SV Design ©2023 Created by Ant UED
         </Footer>
       </Layout>
     </Layout>

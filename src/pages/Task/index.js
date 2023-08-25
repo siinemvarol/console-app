@@ -9,6 +9,19 @@ const Task = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tasks, setTasks] = useState([]);
   const [initialValues, setInitialValues] = useState();
+  const [search, setSearch] = useState("");
+
+  const buttons = [
+    {
+      key: "addTask",
+      text: "Add Task",
+      type: "primary",
+      onClick: () => {
+        setIsModalOpen(true);
+        setInitialValues(null);
+      },
+    },
+  ];
 
   const onOkAddTask = (values) => {
     setIsModalOpen(false);
@@ -38,21 +51,13 @@ const Task = () => {
     setIsModalOpen(false);
   };
 
-  const buttons = [
-    {
-      key: "addTask",
-      text: "Add Task",
-      type: "primary",
-      onClick: () => {
-        setIsModalOpen(true);
-        setInitialValues(null);
-      },
-    },
-  ];
-
   const onClickEdit = (row) => {
     setIsModalOpen(true);
     setInitialValues(row);
+  };
+
+  const onSearch = (value) => {
+    setSearch(value);
   };
 
   const columns = [
@@ -85,8 +90,14 @@ const Task = () => {
   }, []);
 
   return (
-    <PageLayout buttons={buttons}>
-      <Table dataSource={tasks} columns={columns} rowKey="id" />
+    <PageLayout buttons={buttons} onSearch={onSearch}>
+      <Table
+        dataSource={tasks.filter((task) => {
+          return task.name.includes(search);
+        })}
+        columns={columns}
+        rowKey="id"
+      />
       {isModalOpen && (
         <AddTaskModal
           isModalOpen={isModalOpen}
