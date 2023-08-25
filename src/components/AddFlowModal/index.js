@@ -1,6 +1,6 @@
 import { Button, Form, Input, Modal, Select } from "antd";
 
-const AddFlowModal = ({ isModalOpen, onOk, onCancel }) => {
+const AddFlowModal = ({ isModalOpen, onOk, onCancel, tasks }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -29,14 +29,18 @@ const AddFlowModal = ({ isModalOpen, onOk, onCancel }) => {
         </Form.Item>
         <Form.Item name="tasks" label="Tasks" rules={[{ required: true }]}>
           <Select mode="multiple" placeholder="Select a task">
-            <Select.Option value="task1">task1</Select.Option>
-            <Select.Option value="task2">task2</Select.Option>
-            <Select.Option value="task3">task3</Select.Option>
+            {
+            tasks.map((task) => {
+              return <Select.Option key={task.id} value={task.id}>
+                {task.name}
+              </Select.Option>
+            })
+            }
           </Select>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Add Task
+            Add Flow
           </Button>
         </Form.Item>
       </Form>

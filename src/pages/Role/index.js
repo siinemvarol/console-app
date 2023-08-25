@@ -5,19 +5,6 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Tag } from "antd";
 
-const dataSource = [
-  {
-    key: "1",
-    name: "Mike",
-    permissions: "",
-  },
-  {
-    key: "2",
-    name: "John",
-    permissions: "",
-  },
-];
-
 const columns = [
   {
     title: "Name",

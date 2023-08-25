@@ -43,7 +43,7 @@ const AddRoleModal = ({ isModalOpen, onOk, onCancel, permissions }) => {
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
           <Button type="primary" htmlType="submit">
-            Add Permission
+            Add Role
           </Button>
         </Form.Item>
       </Form>

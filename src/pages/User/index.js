@@ -1,25 +1,8 @@
 import { useEffect, useState } from "react";
 import AddUserModal from "../../components/AddUserModal";
 import PageLayout from "../../components/PageLayout";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 import axios from "axios";
-
-const dataSource = [
-  {
-    key: "1",
-    firstname: "Mike",
-    lastname: "Mike",
-    gender: "male",
-    roles: "",
-  },
-  {
-    key: "2",
-    firstname: "John",
-    lastname: "John",
-    gender: "male",
-    roles: "",
-  },
-];
 
 const columns = [
   {
@@ -41,16 +24,41 @@ const columns = [
     title: "Roles",
     dataIndex: "roles",
     key: "roles",
+    render: (cell, row) => {
+      return cell.map((item) => (
+        <Tag color="green" key={item.id}>
+          {item.name}
+        </Tag>
+      ));
+    },
   },
 ];
 
 const User = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [roles, setRoles] = useState([]);
+  const [users, setUsers] = useState([]);
 
   const onOkAddModel = (values) => {
     setIsModalOpen(false);
     console.log(values);
+    const newUser = {
+      firstname: values.firstname,
+      lastname: values.lastname,
+      gender: values.gender,
+      roles: values.roles.join(","),
+    };
+    axios.post("http://localhost:5000/user", newUser).then((res) => {
+      setUsers((prevState) => [
+        ...prevState,
+        {
+          ...res.data,
+          roles: values.roles.map(
+            (rId) => roles.filter((rl) => rl.id === parseInt(rId))[0]
+          ),
+        },
+      ]);
+    });
   };
 
   const onCancelAddModel = () => {
@@ -68,16 +76,24 @@ const User = () => {
 
   useEffect(() => {
     axios.get("http://localhost:5000/role").then((res) => {
-        setRoles(res.data);
-        axios.get("http://localhost:5000/user").then((resUser) => {
-            
-        })
-    })
-  }, [])
+      setRoles(res.data);
+      axios.get("http://localhost:5000/user").then((resUser) => {
+        const usersData = resUser.data.map((user) => {
+          return {
+            ...user,
+            roles: user.roles.split(",").map((rId) => {
+              return res.data.filter((r) => r.id === parseInt(rId))[0];
+            }),
+          };
+        });
+        setUsers(usersData);
+      });
+    });
+  }, []);
 
   return (
     <PageLayout buttons={buttons}>
-      <Table dataSource={dataSource} columns={columns} />
+      <Table dataSource={users} columns={columns} rowKey="id" />
       <AddUserModal
         isModalOpen={isModalOpen}
         onOk={onOkAddModel}

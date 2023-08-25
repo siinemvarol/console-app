@@ -45,8 +45,8 @@ const AddUserModal = ({ isModalOpen, onOk, onCancel, roles }) => {
             <Select.Option value="other">Other</Select.Option>
           </Select>
         </Form.Item>
-        <Form.Item name="role" label="Role" rules={[{ required: true }]}>
-          <Select placeholder="Select an option">
+        <Form.Item name="roles" label="Roles" rules={[{ required: true }]}>
+          <Select mode="multiple" placeholder="Select an option">
             {roles.map((role) => {
               return (
                 <Select.Option value={role.id} key={role.id}>
